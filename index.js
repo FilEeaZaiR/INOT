@@ -217,7 +217,7 @@ if(message.content.startsWith(prefix + "news")) {
         .setTimestamp()
         message.channel.send(news_embed)
 
-    message.channel.send("@#Notifications")
+    message.channel.send("<@533637357035847680>")
     .then(message => setTimeout(function(){message.delete()}, 1000))
     }else{
         return message.channel.send(" désolé, mais tu n'as pas la permission")
@@ -235,12 +235,12 @@ if(message.content.startsWith(prefix + "inotif")) {
 
     if(!user.roles.has(role.id)) {
       user.addRole(role)
-      message.channel.send(`${emoji.sucess} **Vous avez maintenant le rôle ${role}**`)
+      message.channel.send(`**Vous avez maintenant le rôle ${role}**`)
     }
 
     if(user.roles.has(role.id)) {
       user.removeRole(role)
-      message.channel.send(`${emoji.sucess} **Le rôle ${role} vous a été enlevé**`)
+      message.channel.send(`**Le rôle ${role} vous a été enlevé**`)
     }
 }
 }});
