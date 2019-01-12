@@ -265,19 +265,13 @@ if(message.content.startsWith(prefix + "inotif")) {
 
     message.delete()
 
-    let user = message.author;
+    let user = message.guild.member(message.author);
 
     let role = message.guild.roles.find(m => m.id === "533636682482974741");
     if(!role) return console.log("Le rôle n'existe pas !");
 
-    if(!user.roles.has(role.id)) {
-      user.addRole(role)
-      message.channel.send(`**Vous avez maintenant le rôle ${role}**`);
-    }
-
-    if(user.roles.has(role.id)) {
-      user.removeRole(role)
-      message.channel.send(`**Le rôle ${role} vous a été enlevé**`);
-    }
+    user.addRole(role).catch(console.error);
+    message.channel.send(`**Vous avez maintenant le rôle ${role}**`);
+    
 }
 }});
