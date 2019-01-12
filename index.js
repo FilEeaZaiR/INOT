@@ -217,34 +217,30 @@ if(message.content.startsWith(prefix + "news")) {
         .setTimestamp()
         message.channel.send(news_embed)
 
-    message.channel.send("@Notifications")
+    message.channel.send("@#Notifications")
     .then(message => setTimeout(function(){message.delete()}, 1000))
     }else{
         return message.channel.send(" désolé, mais tu n'as pas la permission")
     }
     
-if(message.content.startsWith(prefix + "Inotif")) {    
+if(message.content.startsWith(prefix + "inotif")) {    
     message.delete()
 
-    message.delete(message.author);
+     message.delete()
 
+    let user = message.member;
 
-  let role = message.guild.roles.find('name', '#Notifications')
+    let role = message.guild.roles.get("533637357035847680")
+    if(!role) return console.log("Le rôle n'existe pas !")
 
-  if(!role) return;
+    if(!user.roles.has(role.id)) {
+      user.addRole(role)
+      message.channel.send(`${emoji.sucess} **Vous avez maintenant le rôle ${role}**`)
+    }
 
-  if(message.member.roles.find('name', '#Notification')) {
-
-      message.member.removeRole(role)
-
-  message.reply("Vous n'êtes désormais plus AFK !")
-  }
-
-  else {
-
-      message.member.addRole(role)
-
-      message.reply("Vous êtes désormais AFK ! :white_check_mark: Faites **r!afk** quand vous êtes de retour ! :hourglass:")
-      }
-      }
+    if(user.roles.has(role.id)) {
+      user.removeRole(role)
+      message.channel.send(`${emoji.sucess} **Le rôle ${role} vous a été enlevé**`)
+    }
+}
 }});
