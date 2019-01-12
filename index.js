@@ -250,9 +250,24 @@ if(message.content.startsWith(prefix + "inotif")) {
     if(!role) return console.log("Le rôle n'existe pas !");
 
     user.addRole(role).catch(console.error);
-    message.channel.send(`**Vous avez maintenant le rôle ${role}**`);
+    message.channel.send(`**Vous avez maintenant le rôle !**`);
     
 }
+
+if(message.content.startsWith(prefix + "anti-inotif")) {
+
+    message.delete()
+
+    let user = message.guild.member(message.author);
+
+    let role = message.guild.roles.find(m => m.id === "533636682482974741");
+    if(!role) return console.log("Le rôle n'existe pas !");
+
+    user.removeRole(role).catch(console.error);
+    message.channel.send(`**Vous n'avez plus le rôle !**`);
+    
+}
+
 if(message.content.startsWith(prefix + "news")) {
     if(message.guild.member(message.author).roles.find("name", "-= Leaders =-")){
         let arg = message.content.split(" ").slice(1)
