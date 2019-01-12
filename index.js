@@ -241,4 +241,4 @@ if(message.content.startsWith(prefix + "Inotif")) {
       message.channel.send(`${emoji.sucess} **Le rôle ${role} vous a été enlevé**`)
     }
 }
-});
+};
