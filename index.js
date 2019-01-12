@@ -176,3 +176,69 @@ client.on("messageDelete", (message) => {
     .setTimestamp()
     logs.send({embed})
   });
+
+client.on(`message`, message =>{
+    
+if(message.content.startsWith(prefix + "sondage")) {
+    if(message.guild.member(message.author).roles.find("name", "-= Leaders =-")){
+        let args = message.content.split(" ").slice(1);
+        let ThingToEcho = args.join(" ")
+        var sondage_embed = new Discord.RichEmbed()
+        .setDescription("Sondage")
+        .addField(ThingToEcho, "Répondre avec :white_check_mark: ou :x:")
+        .setColor("18d67e")
+	.setFooter(`Sondage par ${message.author.tag}`)
+        .setTimestamp()
+        message.channel.send(sondage_embed)
+        .then(function (message) {
+            message.react("✅")
+            message.react("❌")
+        }).catch(function() {
+        });
+
+        message.delete()
+    }else{
+        return message.channel.send(" désolé, mais tu n'as pas la permission")
+    }
+}
+if(message.content.startsWith(prefix + "news")) {
+    if(message.guild.member(message.author).roles.find("name", "-= Leaders =-")){
+        let arg = message.content.split(" ").slice(1)
+        let args = arg.join(" ")
+        if(!args) return message.reply(`${emoji.error} **Merci de fournir un texte.**`);
+
+        message.delete(message.author);
+
+        var news_embed = new Discord.RichEmbed()
+        .setColor('#FE0177')
+        .setAuthor("ιהơדBot - News", client.user.avatarURL)
+        .addField("News", args)
+        .setFooter("News")
+        .setTimestamp()
+        message.channel.send(news_embed)
+
+    message.channel.send("@Notifications")
+    .then(message => setTimeout(function(){message.delete()}, 1000))
+    }else{
+        return message.channel.send(" désolé, mais tu n'as pas la permission")
+    }
+    
+if(message.content.startsWith(prefix + "Inotif")) {    
+    message.delete()
+
+    let user = message.member;
+
+    let role = message.guild.roles.get("533637357035847680")
+    if(!role) return console.log("Le rôle n'existe pas !")
+
+    if(!user.roles.has(role.id)) {
+      user.addRole(role)
+      message.channel.send(`${emoji.sucess} **Vous avez maintenant le rôle ${role}**`)
+    }
+
+    if(user.roles.has(role.id)) {
+      user.removeRole(role)
+      message.channel.send(`${emoji.sucess} **Le rôle ${role} vous a été enlevé**`)
+    }
+}
+});
