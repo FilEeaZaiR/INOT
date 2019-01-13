@@ -52,7 +52,7 @@ client.on("guildMemberAdd", member => {
     const logs = member.guild.channels.find(m => m.name === "logs");
     if (!logs) return;
 
-    message.channel.send({
+    logs.send({
         embed: {
             color: 0xFE6F01,
             author: {
