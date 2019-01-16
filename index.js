@@ -15,8 +15,8 @@ client.on("ready", () => {
     setInterval(function() {
 
         var statut = [
-          `Besoin d'aide ? " + prefix + "help`, 
-          `ιאơדBot By FilEeaZaiR`,
+          `i!help for help ^^`, 
+          `ιהơדBot By FilEeaZaiR`,
           `${client.users.size} users`];
     
         var random = Math.floor(Math.random()*(statut.length));
@@ -84,17 +84,36 @@ client.on("guildMemberRemove", member => {
     const bvn = member.guild.channels.find(m => m.name === "bye-bye")
     if (!bvn) return;
 
-    const embed = new Discord.RichEmbed()
-    .setColor('#009114')
-    .setAuthor("Départ d'un utilisateur", member.user.avatarURL)
-    .setThumbnail(member.user.avatarURL)
-    .setDescription(`Aurevoir **${member.user.tag}**\n` +
-    `Il y a maintenant **${member.guild.memberCount} membres**`)
-    .setImage("http://www.lesaffaires.com/uploads/images/normal/578f645f2123b12d0257dfa1fbdb8fff.jpg")
-    .setFooter(`ID : ${member.user.id}`)
-    .setTimestamp()
-
-    bvn.send(embed);
+    bvn.send({embed: {
+            color: 0xFE6F01,
+            author: {
+                name: member.user.tag,
+                icon_url: member.user.displayAvatarURL
+            },
+            title: "Départ d'un utilisateur",
+	    image: {
+		    url: "http://www.lesaffaires.com/uploads/images/normal/578f645f2123b12d0257dfa1fbdb8fff.jpg"
+	    },
+	    thumbnail: {
+                        url: member.user.displayAvatarURL
+            },
+            fields: [
+            {
+                name: "Un utilisateur vient de partir",
+                value: `Il s'agit de [${member.user.tag}]`,
+                inline: true
+            },
+            {
+                name: `Nombre de membres après le départ de __${member.user.tag}__`,
+                value: member.guild.memberCount,
+                inline: false
+            }],
+            timestamp: new Date(),
+            footer: {
+                text: `ID : ${member.user.id} | FilEeaZaiR#1258`,
+            }
+        }
+    });
 });
 
 client.on("guildMemberRemove", member => {
